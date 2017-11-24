@@ -86,6 +86,7 @@ def run(test, params, env):
     def pci_add(pci_add_cmd):
         guest_devices = session.cmd_output(chk_cmd)
         error.context("Adding pci device with command 'pci_add'")
+	pci_add_cmd += ",bus=root_port"
         add_output = vm.monitor.send_args_cmd(pci_add_cmd, convert=False)
         guest_device = find_new_device(chk_cmd, guest_devices)
         pci_info.append(['', '', add_output, pci_model, guest_device])

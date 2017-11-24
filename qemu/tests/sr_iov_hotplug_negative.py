@@ -83,6 +83,7 @@ def run(test, params, env):
             msg = "Adding pci device with command '%s'" % pci_add_cmd
             error.context(msg, logging.info)
             case_fail = False
+	    pci_add_cmd += ",bus=root_port"
             add_output = vm.monitor.send_args_cmd(pci_add_cmd, convert=False)
             case_fail = True
         except Exception, err:

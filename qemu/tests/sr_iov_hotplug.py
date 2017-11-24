@@ -70,6 +70,7 @@ def run(test, params, env):
 
     def pci_add(pci_add_cmd):
         error_context.context("Adding pci device with command 'pci_add'")
+        pci_add_cmd += ",bus=root_port"
         add_output = vm.monitor.send_args_cmd(pci_add_cmd, convert=False)
         pci_info.append(['', add_output])
         if "OK domain" not in add_output:
@@ -103,6 +104,7 @@ def run(test, params, env):
         return device_add(pci_num, pci_add_cmd)
 
     def device_add(pci_num, pci_add_cmd):
+        pci_add_cmd += ",bus=root_port"
         error_context.context("Adding pci device with command 'device_add'")
         if vm.monitor.protocol == 'qmp':
             add_output = vm.monitor.send_args_cmd(pci_add_cmd)
