@@ -172,7 +172,7 @@ def run(test, params, env):
     def device_add(pci_num, pci_add_cmd):
         error.context("Adding pci device with command 'device_add'",
                       logging.info)
-	pci_add_cmd += ",bus=root_port"
+	pci_add_cmd += ",bus=root_port" + str(pci_num)
         if vm.monitor.protocol == 'qmp':
             add_output = vm.monitor.send_args_cmd(pci_add_cmd, convert=False)
         else:
