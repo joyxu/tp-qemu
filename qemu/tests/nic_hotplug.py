@@ -108,10 +108,10 @@ def run(test, params, env):
         :param netdev: netdev id for virtual device
         :param device_id: device id for virtual device
         """
-        pci_add_cmd = "device_add id=%s, driver=%s, netdev=%s" % (device_id,
+        pci_add_cmd = "device_add id=%s,driver=%s,netdev=%s" % (device_id,
                                                                   pci_model,
                                                                   netdev)
-        pci_add_cmd += ",bus=root_port"
+        pci_add_cmd += ",bus=root_port0"
         add_output = vm.monitor.send_args_cmd(pci_add_cmd)
         return add_output
 
