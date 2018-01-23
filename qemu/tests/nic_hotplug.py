@@ -108,10 +108,10 @@ def run(test, params, env):
         :param netdev: netdev id for virtual device
         :param device_id: device id for virtual device
         """
-        pci_add_cmd = "device_add id=%s, driver=%s, netdev=%s" % (device_id,
+        pci_add_cmd = "device_add id=%s,driver=%s,netdev=%s" % (device_id,
                                                                   pci_model,
                                                                   netdev)
-        pci_add_cmd += ",bus=root_port"
+        pci_add_cmd += ",bus=root_port0"
         add_output = vm.monitor.send_args_cmd(pci_add_cmd)
         return add_output
 
@@ -141,6 +141,7 @@ def run(test, params, env):
             nic_params["nic_model"] = nic_model
             nic_params["nic_name"] = nic_name
             used_sameid = params.get("used_sameid")
+            nic_params["nic_extra_params"] = ",bus=root_port0"
 
             if used_sameid == "yes":
                 useddevice_id = primary_nic[0].netdev_id
