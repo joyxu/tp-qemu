@@ -48,6 +48,7 @@ def run(test, params, env):
     mig_protocol = params.get("migration_protocol", "tcp")
     mig_cancel_delay = int(params.get("mig_cancel") == "yes") * 2
     pci_model = params.get("pci_model")
+    nic_extra_params = ",bus=root_port0"
 
     # Modprobe the module if specified in config file
     module = params.get("modprobe_module")
@@ -62,7 +63,8 @@ def run(test, params, env):
     nic_info = vm.hotplug_nic(nic_model=pci_model, nic_name=nic_name,
                               netdst=netdst, nettype=nettype,
                               queues=params.get('queues'),
-                              enable_msix_vectors=enable_msix_vectors)
+                              enable_msix_vectors=enable_msix_vectors,
+                              nic_extra_params=nic_extra_params)
     nic_mac = nic_info['mac']
     vm.params['nics'] += " %s" % nic_name
     vm.params['nic_model_%s' % nic_name] = nic_info['nic_model']
