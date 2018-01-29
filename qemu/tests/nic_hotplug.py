@@ -112,7 +112,10 @@ def run(test, params, env):
                                                                   pci_model,
                                                                   netdev)
         pci_add_cmd += ",bus=root_port0"
-        add_output = vm.monitor.send_args_cmd(pci_add_cmd)
+        if vm.monitor.protocol == 'qmp':
+	    add_output = vm.monitor.send_args_cmd(pci_add_cmd)
+	else:
+	    add_output = vm.monitor.send_args_cmd(pci_add_cmd, convert=False)
         return add_output
 
     login_timeout = int(params.get("login_timeout", 360))
