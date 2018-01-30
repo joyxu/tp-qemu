@@ -149,11 +149,10 @@ def run(test, params, env):
             if used_sameid == "yes":
                 useddevice_id = primary_nic[0].netdev_id
                 logging.info("Hot-plug NIC with the netdev already in use")
-                try:
-                    add_output = device_add_nic(nic_model, useddevice_id, nic_name)
-                except Exception, err_msg:
-                    match_error = params["devadd_match_string"]
-                    if match_error in str(err_msg):
+                add_output = device_add_nic(nic_model, useddevice_id, nic_name)
+                if add_output:
+                    match_error = params.get("devadd_match_string")
+                    if match_error in str(add_output):
                         s_session.close()
                         return
                     else:
