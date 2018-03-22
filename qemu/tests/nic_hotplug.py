@@ -145,6 +145,8 @@ def run(test, params, env):
             nic_params["nic_name"] = nic_name
             used_sameid = params.get("used_sameid")
             nic_params["nic_extra_params"] = ",bus=root_port0"
+            if params.get("netdev_extra_params_hotplug_nic1") == ",vhost=on":
+                nic_params["nettype"] = "macvtap"
 
             if used_sameid == "yes":
                 useddevice_id = primary_nic[0].netdev_id
