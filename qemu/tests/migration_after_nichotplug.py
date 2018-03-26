@@ -74,9 +74,9 @@ def run(test, params, env):
         # Only run dhclient if explicitly set and guest is not running Windows.
         # Most modern Linux guests run NetworkManager, and thus do not need this.
         if run_dhclient == "yes" and guest_is_not_windows:
-        session_serial = vm.wait_for_serial_login(timeout=timeout)
-        ifname = utils_net.get_linux_ifname(session_serial, nic_mac)
-        utils_net.restart_guest_network(session_serial, ifname)
+            session_serial = vm.wait_for_serial_login(timeout=timeout)
+            ifname = utils_net.get_linux_ifname(session_serial, nic_mac)
+            utils_net.restart_guest_network(session_serial, ifname)
             # Guest need to take quite a long time to set the ip addr, sleep a
             # while to wait for guest done.
             time.sleep(60)
