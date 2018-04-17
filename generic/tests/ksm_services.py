@@ -19,6 +19,7 @@ def test_setting_params(ksmctler, params):
     """
     value_delta = int(params.get("ksm_value_delta", 10))
     ksm_run = int(params.get("ksm_run", 1))
+    ksm_use_zero_pages = int(params.get("ksm_use_zero_pages", 1))
     writable_features = ksmctler.get_writable_features()
     # Get default value of ksm parameters
     default_values = {}
@@ -32,6 +33,8 @@ def test_setting_params(ksmctler, params):
     for key in default_values.keys():
         if key == "run":
             set_values[key] = ksm_run
+        if key == "use_zero_pages":
+            set_values[key] = ksm_use_zero_pages
         elif key in black_list:
             continue
         else:
