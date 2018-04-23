@@ -270,7 +270,7 @@ def run(test, params, env):
             utils.run(cmd).stdout
             return "legacy"
         except:
-            cmd = qemu_binary + " -cpu ?"
+            cmd = qemu_binary + " -cpu ? -machine virt"
             output = utils.run(cmd).stdout
             if "CPUID" in output:
                 return "1350"
