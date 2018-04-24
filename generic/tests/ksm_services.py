@@ -33,7 +33,7 @@ def test_setting_params(ksmctler, params):
     for key in default_values.keys():
         if key == "run":
             set_values[key] = ksm_run
-        if key == "use_zero_pages":
+        elif key == "use_zero_pages":
             set_values[key] = ksm_use_zero_pages
         elif key in black_list:
             continue
