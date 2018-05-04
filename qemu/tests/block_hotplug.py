@@ -105,14 +105,17 @@ def run(test, params, env):
                         err = "%s is not in qtree after hotplug" % controller_model
                         test.fail(err)
 
-                drive = qdevices.QRHDrive("block%d" % num)
+                drive = qdevices.QHPDrive("block%d" % num)
                 drive.set_param("file", find_image(img_list[num + 1]))
                 drive.set_param("format", img_format_type)
+                drive.set_param("if", "none")
                 drive_id = drive.get_param("id")
                 drive.hotplug(vm.monitor)
 
                 device.set_param("drive", drive_id)
                 device.set_param("id", "block%d" % num)
+                if pci_type != "scsi-hd":
+                    device.set_param("bus", "root_port%d" % num)
                 blk_extra_param = params.get("blk_extra_params_%s" % img_list[num + 1])
                 if blk_extra_param and "iothread" in blk_extra_param:
                     match = re.search("iothread=(\w+)", blk_extra_param)
