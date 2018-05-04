@@ -70,6 +70,7 @@ def run(test, params, env):
     data_image_filename = storage.get_image_filename(data_image_params,
                                                      data_dir.get_data_dir())
     data_image_dev = vm.get_block({'file': data_image_filename})
+    data_image_dev = data_image_dev.split()[0]
 
     drive_path = ""
     if params.get("os_type") == 'linux':
